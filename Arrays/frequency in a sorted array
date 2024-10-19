@@ -1,0 +1,36 @@
+public class Solution {
+	public static int countOccurrences(int[] arr, int x) {
+		/*
+			take the mid if it is key then 
+			start from there and count the key
+		*/
+
+		int start = 0;
+		int end = arr.length - 1;
+		int count = 0;
+
+		while(start <= end) {
+			int mid = start + (end - start) / 2;
+
+			if(arr[mid] == x) {
+				int right = mid;
+				while(right < arr.length && arr[right] == x) {
+					count++;
+					right++;
+				}
+				int left = mid - 1;
+				while(left >= 0 && arr[left] == x) {
+					count++;
+					left--;
+				}
+				break;
+			} else if(arr[mid] < x) {
+				start = mid + 1; 
+			} else {
+				end = mid - 1;
+			}
+		}
+
+		return count;
+	}
+}
