@@ -1,0 +1,39 @@
+/*
+Problem statement
+Given a string ‘STR’ consisting of lower case English letters, the task is to find the first non-repeating character in the string and return it. If it doesn’t exist, return ‘#’.
+
+For example:
+
+For the input string 'abcab', the first non-repeating character is ‘c’. As depicted the character ‘a’ repeats at index 3 and character ‘b’ repeats at index 4. Hence we return the character ‘c’ present at index 2.
+
+49 min.
+*/
+
+import java.util.* ;
+import java.io.*; 
+public class Solution {
+	public static char firstNonRepeating(String str) {
+		int n = str.length();
+
+		Map<Character, Integer> map = new HashMap<>();
+
+		for(int i=0; i<n; i++) {
+			map.put(str.charAt(i), map.getOrDefault(str.charAt(i), 0)+1);
+		}
+
+		// for(Map.Entry<Character, Integer> entry: map.entrySet()) {
+		// 	char c = entry.getKey(); int u = entry.getValue();
+		// 	if(u == 1) {
+		// 		return c;
+		// 	}
+		// }
+
+		for(int i=0; i<n; i++) {
+			if(map.get(str.charAt(i)) == 1) {
+				return str.charAt(i);
+			}
+		}
+
+		return '#';
+	}
+}
