@@ -1,0 +1,50 @@
+/*
+You are given a string S consisting of a list of words; the string contains lowercase alphabets and some special symbols such as (*, $, #). Now, our task is to make the string good, and this is done by removing all the special characters from the sentence. For this, we have to perform two operations-
+
+Firstly, choose the special symbol in the given sentence.
+In the second step, remove the special symbol and the closest alphabets present to the right of that special character.
+Input Format
+The first and only line of the input contains the string S.
+
+Output Format
+Print the excellent sentence obtained after performing the operations.
+
+NS 30min
+*/
+
+
+import java.util.*;
+
+public class Main {
+
+    public static String beauty(String s) {
+        StringBuilder sb = new StringBuilder();
+        int i = 0;
+        int n = s.length();
+
+        while (i < n) {
+            char ch = s.charAt(i);
+
+            if (ch == '*' || ch == '$' || ch == '#') {
+                // Skip this symbol
+                i++;
+                // Also skip the next character if it's a letter
+                if (i < n && Character.isLetter(s.charAt(i))) {
+                    i++;
+                }
+            } else {
+                sb.append(ch);
+                i++;
+            }
+        }
+
+        return sb.toString();
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        String s = sc.nextLine();
+
+        System.out.println(beauty(s));
+    }
+}
