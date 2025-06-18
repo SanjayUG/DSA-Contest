@@ -18,6 +18,8 @@ YES
 Explanation for Sample Input 1:
 In the first test case, the given string is “toosmallword” which contains the characters [‘t’,’o’,’s’,’m’,’a’,’l’,’w’,’r’,’d’], which doesn’t contain all the 26 alphabetic characters. Hence the answer is “NO”.
 
+
+14min
 */
 
 import java.util.* ;
