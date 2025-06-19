@@ -7,7 +7,7 @@ If more than one such pair of indices exist, return the lexicographically smalle
 You may not use the same element twice.
 Where T is the number of test cases, N is the size of the input array, Arr[i] refers to the elements of the array and target is the given value of the sum.
 
-
+28.41min
 */
 
 import java.util.Arrays;
