@@ -1,0 +1,66 @@
+/*
+Problem statement
+Given an integer array Arr of size N and an integer target, your task is to find the indices of two elements of the array such that their sum is equal to target. Return <-1,-1> if no such pair exists.
+
+Note:
+If more than one such pair of indices exist, return the lexicographically smallest pair
+You may not use the same element twice.
+Where T is the number of test cases, N is the size of the input array, Arr[i] refers to the elements of the array and target is the given value of the sum.
+
+
+*/
+
+import java.util.Arrays;
+import java.util.HashMap;
+public class Solution {
+    public static int[] twoSum(int arr[], int n,int target) {
+        
+        for(int i=0; i<n; i++) {
+            for(int j=i+1; j<n; j++) {
+                if(arr[i] + arr[j] == target) {
+                    return new int[]{i, j};
+                }
+            }
+        }
+        return new int[] {-1, -1};
+
+        
+        // --------------------------------------
+
+
+
+        // HashMap<Integer, Integer> map = new HashMap<>();
+
+        // for(int i=0; i<n; i++) {
+        //     int a = target - arr[i];
+
+        //     if(map.containsKey(a)) {
+        //         return new int[]{map.get(a), i};
+        //     }
+        //     map.put(arr[i], i);
+        // }
+
+        // return new int[]{-1, -1};
+
+
+
+        // --------------------------------------
+
+        // int l = 0, h = n-1;
+
+        // Arrays.sort(arr);
+        // while(l<h) {
+        //     int sum = arr[l]+arr[h];
+        //     if(sum == target) {
+        //         return new int[]{l, h};
+        //     }
+
+        //     if(sum < target) {
+        //         l++;
+        //     } else {
+        //         h--;
+        //     }
+        // }
+        // return new int[]{-1, -1};
+    }
+}
