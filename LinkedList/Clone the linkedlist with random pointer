@@ -1,0 +1,116 @@
+/*
+Problem statement
+You are given a linked list containing 'n' nodes, where every node in the linked list contains two pointers:
+(1) ‘next’ which points to the next node in the list
+(2) ‘random’ which points to a random node in the list or 'null'.
+Your task is to create a 'deep copy' of the given linked list and return its head.
+Note:
+A 'deep copy' of a linked list means we do not copy the references of the nodes of the original linked list, rather for each node in the original linked list, a new node is created.
+
+43.31min
+*/
+
+
+/****************************************************************
+
+ Following is the class structure of the Node class:
+
+ class Node {
+     public int data;
+     public Node next;
+     public Node random;
+
+     Node()
+     {
+         this.data = 0;
+         this.next = null;
+         this.random = null;
+     }
+     Node(int data)
+     {
+         this.data = data;
+         this.next = null;
+         this.random = null;
+     }
+     Node(int data, Node next, Node random)
+     {
+         this.data = data;
+         this.next = next;
+         this.random = random;
+     }
+ }
+
+ *****************************************************************/
+import java.util.*;
+
+public class Solution {
+    public static Node cloneLL(Node head) {
+        if (head == null) return null;
+
+        HashMap<Node, Node> map = new HashMap<>();
+        Node curr = head;
+
+        // First pass: create copy nodes
+        while(curr != null) {
+            map.put(curr, new Node(curr.data));
+            curr = curr.next;
+        }
+
+        curr = head;
+        // Second pass: assign next and random pointers
+        while(curr != null) {
+            map.get(curr).next = map.get(curr.next);
+            map.get(curr).random = map.get(curr.random);
+            curr = curr.next;
+        }
+
+        return map.get(head);
+
+
+
+        // ---------------------------
+
+        // if(head == null) {
+        //     return head;
+        // }
+
+        
+        // Node curr = head;
+
+        // while(curr != null) {
+        //     Node a = new Node(curr.data);
+        //     a.next = curr.next;
+        //     curr.next = a;
+
+        //     curr = curr.next;
+
+        // }
+
+        // curr = head;
+        // while(curr != null) {
+        //     if(curr.random != null) {
+        //         curr.next.random = curr.random.next;
+        //     }
+
+        //     curr = curr.next.next;
+        // }
+
+        // curr = head;
+
+        // Node dummy = new Node(-1);
+        // Node temp = dummy;
+        
+        // while(curr != null) {
+        //     Node a = (curr.next != null) ? curr.next.next: null;
+            
+        //     temp.next = curr.next;
+        //     curr.next = a;
+
+        //     temp = temp.next;
+        //     curr = a;
+        // }
+
+        // return dummy.next;
+
+    }
+}
