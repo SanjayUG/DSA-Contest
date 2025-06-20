@@ -1,0 +1,42 @@
+/*
+Problem statement
+Ninja was planning to propose to his crush, Nina, with his spectacular martial arts moves. But Nina was more interested in numbers and divisors, so she gave Ninja a challenge to complete. If Ninja solves it, only then she will date him.
+Nina gave him an array of positive integers, ‘ARR’ and asked him to find the sum of divisors of the integers in ‘ARR’ with exactly four divisors. In case there is no such integer with exactly four divisors, then the answer is 0. Ninja has been struggling for a very long time, so he needs your help to solve the problem.
+
+18.22min
+*/
+
+import java.util.* ;
+import java.io.*; 
+public class Solution {
+	public static int sumFourDivisors(ArrayList<Integer> arr, int n) {
+		int sum = 0;
+		for(int i=0; i<n; i++) {
+			ArrayList<Integer> possdiv = findDivisors(arr.get(i));
+			
+			for(int j=0; j<possdiv.size(); j++) {
+				sum += possdiv.get(j);
+			}
+		}
+
+		return sum;
+	}
+
+	public static ArrayList<Integer> findDivisors(int num) {
+		ArrayList<Integer> res = new ArrayList<>();
+
+		for(int i=1; i<=num; i++) {
+			if(num%i == 0) {
+				res.add(i);
+			}
+		}
+
+
+		if(res.size() == 4) {
+			return res;
+		}
+
+		return new ArrayList<>();
+	}
+}
+
