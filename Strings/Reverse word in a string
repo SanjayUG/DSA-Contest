@@ -1,0 +1,104 @@
+/*
+Problem statement
+You are given a string 'str' of length 'N'.
+Your task is to reverse the original string word by word.
+There can be multiple spaces between two words and there can be leading or trailing spaces but in the output reversed string you need to put a single space between two words, and your reversed string should not contain leading or trailing spaces.
+
+Example :
+If the given input string is "Welcome to Coding Ninjas", then you should return "Ninjas Coding to Welcome" as the reversed string has only a single space between two words and there is no leading or trailing space.
+
+20.21.min
+*/
+
+public class Solution 
+{
+	public static String reverseString(String str) 
+	{
+		// String rev = "";
+		// int n = str.length();
+		// int i = n-1;
+		// while(i >= 0) {
+		// 	if(str.charAt(i) == ' ') {
+		// 		i--;
+		// 	} else {
+		// 		int j = i;
+
+		// 		while(j>=0 && str.charAt(j) != ' ') {
+		// 			j--;
+		// 		}
+
+		// 		for(int k=j+1; k<=i; k++) {
+		// 			rev = rev + str.charAt(k);
+		// 		}
+		// 		rev = rev + ' ';
+				
+		// 		i = j;
+		// 	}
+
+		// }
+
+		// return rev.substring(0, rev.length());
+
+
+
+		// -----------------------
+
+
+
+		char[] arr = str.toCharArray();
+        int n = arr.length;
+
+        // Step 1: Reverse the whole array
+        reverse(arr, 0, n - 1);
+
+        // Step 2: Reverse each word
+        int start = 0;
+        for (int end = 0; end <= n; end++) {
+            if (end == n || arr[end] == ' ') {
+                reverse(arr, start, end - 1);
+                start = end + 1;
+            }
+        }
+
+		// Step 3: Clean up spaces (remove extra spaces and rebuild string)
+        return cleanSpaces(arr, n);
+	}
+
+	private static void reverse(char[] arr, int left, int right) {
+        while (left < right) {
+            char tmp = arr[left];
+            arr[left] = arr[right];
+            arr[right] = tmp;
+            left++;
+            right--;
+        }
+    }
+
+    // Helper to remove extra spaces and convert to final string
+    private static String cleanSpaces(char[] arr, int n) {
+        int i = 0; // arranging chars'
+        int j = 0; // removing space
+
+        while (j < n) {
+            // Skip spaces
+            while (j < n && arr[j] == ' '){
+                j++;
+            }
+
+            // Copy non-space characters
+            while (j < n && arr[j] != ' ') {
+                arr[i++] = arr[j++];
+            }
+
+            // Add single space if next word exists
+            while (j < n && arr[j] == ' ') {
+                j++;
+            }
+            
+            if (j < n) arr[i++] = ' ';
+        }
+
+        return new String(arr, 0, i);
+    }
+
+}
