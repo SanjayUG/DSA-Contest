@@ -1,0 +1,59 @@
+/*
+Problem statement
+Given an array ‘a’ of size ‘n’-1 with elements of range 1 to ‘n’. The array does not contain any duplicates. Your task is to find the missing number.
+
+For example:
+Input:
+'a' = [1, 2, 4, 5], 'n' = 5
+
+Output :
+3
+
+28.43min
+*/
+
+public class Solution {
+    public static int missingNumber(int []a, int N) {
+        
+        int actualSum = N*(N+1)/2;
+        int arraySum = 0;
+
+        for(int i=1; i<=N;i++) {
+            arraySum += a[i-1];
+        }
+
+        return actualSum - arraySum;
+        
+        // --------------------------
+        
+        // int actualSum = 0;
+        // int arraySum = 0;
+
+        // for(int i=1; i<=N;i++) {
+        //     actualSum += i;
+        //     arraySum += a[i-1];
+        // }
+
+        // return actualSum - arraySum;
+
+        // ----------------------------
+        
+        // for(int i=1; i<=N; i++) {
+        //     boolean isPresent = false;
+
+        //     for(int j=0; j<N-1; j++) {
+        //         if(a[j] == i) {
+        //             isPresent = true;
+        //             break;
+        //         } 
+        //     }
+            
+        //     if(!isPresent) {
+        //         return i;
+        //     }
+
+        // }
+
+        // return -1;
+    }
+}
