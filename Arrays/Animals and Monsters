@@ -1,0 +1,80 @@
+/*
+Problem statement
+Ninja lives in the village and has animal husbandry which consists of various animals like cows, sheep, etc. Ninjas’ village also has animal-eating monsters which eat animals that are not present in the fence of the husbandry. You have given the points array ‘POINTS’ having ‘N’ vertices which denote the coordinates in the X-Y plane of the fence and the coordinates of the animal ‘X’ and ‘Y’. The width of the fence is very large so the points present on the fence are considered to be inside. Find if the given animal is safe from monsters or not.
+
+1.20h NS
+*/
+
+
+public class Solution {
+    public static int isSafe(int n, int[][] points, int x, int y)
+    {
+        boolean inside = false;
+
+        for(int i=0, j=n-1; i<n; j=i++) {
+            int xi = points[i][0], yi = points[i][1];
+            int xj = points[j][0], yj = points[j][1];
+        
+
+        if(onSegment(xi, yi, xj, yj, x, y)) {
+            return 1;
+        }
+
+
+        if((yi > y) &&(yj > y)) {
+            double xIntersect = (double)(xj-xi)*(y-yi)/(yj-yi)+xi;
+
+            if(x <= xIntersect) {
+                inside = !inside;
+            }
+        }
+
+        }
+
+        return inside ? 1:0;
+
+        // ------------------------------
+
+        // int minX=Integer.MAX_VALUE, maxX=Integer.MIN_VALUE;
+        // int minY=Integer.MAX_VALUE, maxY=Integer.MIN_VALUE;
+        
+        // for(int i=0; i<n; i++) {
+        //     int px = points[i][0];
+        //     int py = points[i][1];
+
+        //     if(px < minX) {
+        //         minX = px;
+        //     }
+        //     if(px > maxX) {
+        //         maxX = px;
+        //     }
+
+        //     if(py < minY) {
+        //         minY = py;
+        //     }
+        //     if(py > maxY) {
+        //         maxY =  py;
+        //     }
+        // }
+
+        // if(x >= minX && x <= maxX && y >= minY && y <= maxY) {
+        //     return 1;
+        // }
+
+        // return 0;
+    }
+
+    public static boolean onSegment(int x1, int y1, int x2, int y2, int px, int py) {
+        long dx1 = x2 - x1, dy1 = y2 - y1;
+        long dx2 = px - x1, dy2 = py - y1;
+
+        long cross = dx1 * dy2 - dy1 * dx2;
+
+        if(cross != 0) {
+            return false;
+        } 
+
+        return (Math.min(x1, x2)<=px) && (px<=Math.max(x1, x2)) && (Math.min(y1, y2)<=py) && (py<=Math.max(y1, y2));
+    }
+}
+
