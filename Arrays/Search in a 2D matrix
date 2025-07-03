@@ -1,0 +1,56 @@
+/*
+Problem statement
+You have been given a 2-D array 'mat' of size 'M x N' where 'M' and 'N' denote the number of rows and columns, respectively. The elements of each row are sorted in non-decreasing order.
+Moreover, the first element of a row is greater than the last element of the previous row (if it exists).
+You are given an integer ‘target’, and your task is to find if it exists in the given 'mat' or not.
+
+Example:
+Input: ‘M’ = 3, 'N' = 4, ‘mat’ = [[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12]], ‘target’ = 8
+
+Output: true
+Explanation: The output should be true as '8' exists in the matrix.
+
+3.4M
+*/
+
+
+import java.util.ArrayList;
+public class Solution {
+    static boolean searchMatrix(ArrayList<ArrayList<Integer>> mat, int target) {
+        // for(ArrayList<Integer> arr: mat) {
+        //     for(int a: arr) {
+        //         if(a == target) {
+        //             return true;
+        //         }
+        //     }
+        // }
+        // return false;
+
+        if(mat.size() == 0 || mat.get(0).size() == 0) {
+            return false;
+        }
+
+        int row = mat.size();
+        int col = mat.get(0).size();
+
+        int left = 0;
+        int right = row * col - 1;
+
+
+        while(left <= right) {
+            int mid = left + (right - left) / 2;
+
+            int midVal = mat.get(mid/col).get(mid%col);
+
+            if(midVal == target) {
+                return true;
+            } else if(midVal < target) {
+                left = mid + 1;
+            } else {
+                right = mid - 1;
+            }
+        }
+
+        return false;
+    }
+}
