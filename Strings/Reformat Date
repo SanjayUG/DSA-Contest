@@ -1,0 +1,81 @@
+/*
+roblem statement
+You are given a string ‘S’ representing a date in the “Day Month Year” format, where:
+
+1. Day is represented as {"1st", "2nd", "3rd", "4th",”5th”, ...,”29th”, "30th", "31st"}.
+
+2. Month is represented as {"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"}.
+
+3. Year is represented as {2020,2021 etc}
+Your task is to convert the given date into “YYYY-MM-DD” format, where:
+1. YYYY is a 4 digit year.
+
+2. MM is a 2 digit month.
+
+3. DD is a 2 digit day.
+Note:
+
+1. The given dates are guaranteed to be valid.
+
+2. If you can’t represent a month in 2 digits then append  0 in front of the month. Eg: if the month is Jan, represent it as 01 and not as 1 in the answer.
+
+3. If you can’t represent a day in 2 digits then append 0 in front of the day. Eg: if the day is 5, represent it as 05 and not as 5 in the answer.
+
+
+45m
+*/
+
+
+/*
+
+- first we splited the s based on " " using .split()
+- took seaprate d, m, y
+- remover last 2 chars of d using .substring()
+- and if d.length() is 1 the add "0" at begining
+- created months map and filled with month:number pair using map.put()
+- updated the m with number using map.get().
+- attached all using + and reuturned.
+
+
+*/
+
+import java.util.* ;
+import java.io.*; 
+public class Solution {
+	public static String reformDate(String s) {
+		// Write your code here
+
+		String[] date = s.split(" ");
+
+		String d = date[0];
+		String m = date[1];
+		String y = date[2];
+
+		d = d.substring(0, d.length()-2);
+		if(d.length() == 1) {
+			d = "0" + d;
+		}
+
+
+		Map<String, String> months = new HashMap<>();
+
+		months.put("Jan", "01");
+		months.put("Feb", "02");
+		months.put("Mar", "03");
+		months.put("Apr", "04");
+		months.put("May", "05");
+		months.put("Jun", "06");
+		months.put("Jul", "07");
+		months.put("Aug", "08");
+		months.put("Sep", "09");
+		months.put("Oct", "10");
+		months.put("Nov", "11");
+		months.put("Dec", "12");
+
+		m = months.get(m);
+
+		return y + "-" + m +"-" + d;
+
+
+	}
+}
