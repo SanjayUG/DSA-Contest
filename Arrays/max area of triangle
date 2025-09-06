@@ -1,0 +1,90 @@
+/*
+You are given 2D array/list 'POINTS' containing N distinct points on a 2D coordinate system where 'POINTS[i] = [Xi, Yi]. You have to find the maximum area of the triangle that can be formed by using any 3 points out of these N points.
+
+Example
+
+Let 'N' = 5, and the 'POINTS' = [ [0, 0], [2, 1], [0, 4], [0, 2], [5, 0] ].
+
+Here, the maximum area triangle will be formed by using the points [0, 0], [0, 4], [5, 0]
+Hence, the area will be 10 units.
+
+*/
+
+
+import java.util.* ;
+import java.io.*; 
+public class Solution {
+    public static double calculateArea(int n, int points[][]) {
+        /*
+        - here i planned to calculate area for each 3 points using triangel formula
+        - took a maxArea
+        - used 3 for loop from i=0, j=i+1, k=j+1
+        - calculated the area
+        - took maxArea out of it.
+        
+
+        17m
+        */ 
+
+        // double maxArea = 0;
+        // for(int i=0; i<n; i++) {
+        //     int[] p1 = points[i];
+        //     for(int j=i+1; j<n; j++) {
+        //         int[] p2 = points[j];
+        //         for(int k=j+1; k<n; k++) {
+        //             int[] p3 = points[k];
+
+        //             double area = 0.5 * Math.abs(p1[0]*(p2[1] - p3[1]) + p2[0]*(p3[1] - p1[1]) + p3[0]*(p1[1] - p2[1]));
+
+        //             maxArea = Math.max(maxArea, area);
+        //         }
+        //     }
+        // }
+
+        // return maxArea;
+
+
+        // ----
+
+        /*
+        - here i tried to find the max x and its pair
+        - and max y and its pair
+        - and then smallest pair for third point
+        - and used formula: 1/2*|x1*(y2 - y3) + x2*(y3 - y1) + x3*(y1 - y2)|
+        
+        
+        */
+
+        int maxX = Integer.MIN_VALUE;
+        int[] p1 = points[0];
+        for(int[] p: points) {
+            int maximum = Math.max(maxX, p[0]);
+            if(maxX < maximum) {
+                maxX = maximum;
+                p1 = p;
+            }
+        }
+
+        int maxY = Integer.MIN_VALUE;
+        int[] p2 = points[0];
+        for(int []p: points) {
+            int maximum = Math.max(maxY, p[1]);
+            if(maxY < maximum) {
+                maxY = maximum;
+                p2 = p;
+            }
+        }
+
+        int[] p3 = points[0];
+        for(int[] p: points) {
+            if(p[0] < p3[0] || (p[0] == p3[0] && p[1] < p3[1])) {
+                p3 = p;
+            }
+        }
+
+        double area = 0.5 * Math.abs(p1[0]*(p2[1] - p3[1]) + p2[0]*(p3[1] - p1[1]) + p3[0]*(p1[1] - p2[1]));
+
+        return area;
+
+    }
+}
