@@ -1,0 +1,82 @@
+/*
+Problem statement
+Ninja and his friends went to a restaurant on the occasion of Ninja’s birthday. There he was offered by his friends to do some task, if he wins, he would not have to pay a single penny, his friends would pay instead of him. But if he loses, he would have to pay the whole bill. The task was that he was given a bar of chocolate and was asked to break it into single squares.
+The rules were as follows:
+1.Parts of the chocolate may be broken along the vertical and horizontal lines as indicated by the broken lines in the picture.
+2.Each break of a part of the chocolate is charged a cost expressed by a positive integer.
+3.This cost does not depend on the size of the part that is being broken but only depends on the line the break goes along.
+4.Denoting the costs of breaking along consecutive vertical lines with x1, x2, ..., xm-1 and along horizontal lines with y1, y2, ..., yn-1.
+5.The cost of breaking the whole bar into single squares is the sum of the successive breaks.
+
+Sample Input 1 :
+2
+6 4
+2 1 3 1 4
+4 1 2
+2 2
+2
+4
+Sample Output 1 :
+42
+8
+
+*/
+
+
+import java.util.* ;
+import java.io.*; 
+import java.util.ArrayList;
+
+public class Solution {
+	public static int minChocolatePiece(ArrayList<Integer> x, ArrayList<Integer> y, int m, int n) {
+		/*
+		- first sorted the 2 list
+		- took the cutX, cutY and cost
+		- used while loop, took larger value for operation
+		- compute cost with cost += cutY * x.get(i); and cutX++;
+		- and compute cost with cost += cutX * y.get(j); and cutY++;
+		
+		*/ 
+		
+
+
+		// Collections.sort(x, (a, b)->b.compareTo(a));
+		// Collections.sort(y, (a, b)->b.compareTo(a));
+		Collections.sort(x, Collections.reverseOrder());
+		Collections.sort(y, Collections.reverseOrder());
+
+		int cutX = 1;
+		int cutY = 1;
+		int cost = 0;
+
+		int i = 0, j = 0;
+		while(i < m && j < n) {
+			if(x.get(i) > y.get(j)) {
+			cost += x.get(i) * cutY;
+			cutX++;
+			i++;
+				
+			} else {
+			cost += y.get(j) * cutX;
+			cutY++;
+			j++;
+				
+			}
+		}
+
+		while(i < m) {
+			cost += x.get(i) * cutY;
+			cutX++;
+			i++;
+		}
+
+		while(j < n) {
+			cost += y.get(j) * cutX;
+			cutY++;
+			j++;
+		}
+
+		return cost;
+
+	}
+}
