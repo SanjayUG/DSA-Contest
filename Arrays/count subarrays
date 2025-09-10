@@ -1,0 +1,56 @@
+import java.util.* ;
+import java.io.*; 
+public class Solution {
+    public static int numberofSubarrays(int n, int[] arr) {
+        /*
+        - took an array called run which track the consecutive apperance of the 0 and 1;
+        - took countFor1 and countFor0 and tracked counts inside a loop
+        - and just added the counts value to run array. And set counts to 0;
+        - Finally looping through values in num and using formula n*(n+1)/2;
+        
+        
+        */ 
+
+        
+        int i=0;
+        ArrayList<Integer> run = new ArrayList<>();
+
+        int countFor1 = 0;
+        int countFor0 = 0;
+
+        int totalCount = 0;
+
+        while(i < n) {
+            while(i < n && arr[i] == 1) {
+                countFor1++;
+                i++;
+            }
+            if(countFor1 != 0) {
+                // totalCount += (countFor1 * (countFor1 + 1))/2;
+
+                run.add(countFor1);               
+                countFor1 = 0;
+
+            }
+
+            while(i < n && arr[i] == 0) {
+                countFor0++;
+                i++;
+            }
+            if(countFor0 != 0) {
+                // totalCount += (countFor0 * (countFor0 + 1))/2;
+
+                run.add(countFor0);
+                countFor0 = 0;
+
+            }         
+
+        }
+
+        for(int num: run) {
+            totalCount += (num * (num + 1)) / 2;
+        }
+
+        return totalCount;
+    }
+}
