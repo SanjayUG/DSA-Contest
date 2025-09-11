@@ -1,0 +1,100 @@
+/*
+Given an array ‘arr’ of ‘N’ integers, make a number from those set of all integers from the ‘arr’ such that if number of ‘ith’ set bits are greater than the number of ‘ith’ unset bits then make that ‘ith’ bit of the new number as set bi otherwise make that ‘ith’ bit as unset bit.
+
+For Example:
+
+There are three numbers, say 8, 5 and 10. 
+8 can be written as      1 0 0 0 .
+5 can be written as      0 1 0 1.
+10 can be written as     1 0 1 0. 
+positions of the bits as i j k l.
+So we can see majority bit at ith position are set bits so ith bit will be 1. Similarly for positions of j, k and l are set as 0 0 0 respectively.
+So the number generated is 1 0 0 0 i.e. 8. 
+
+
+1.16h
+*/
+
+
+
+import java.util.* ;
+import java.io.*; 
+import java.util.ArrayList;
+
+public class Solution {
+
+    public static int getNewNum(ArrayList<Integer> arr, int n) {
+
+        // Write your code here.
+
+        
+
+        ArrayList<String> binStr = new ArrayList<>();
+
+        for(int num: arr) {
+            binStr.add(Integer.toBinaryString(num));
+        }
+
+        int maxLen = 0;
+        for(String bin: binStr) {
+            int len = bin.length();
+            if(len > maxLen) {
+                maxLen = len;
+            }
+        }
+
+        int j = 0;
+        // for(String bin: binStr) {
+        //     String binaryStr = bin;
+        //     while(binaryStr.length() < maxLen) {
+        //         binaryStr = "0" + binaryStr;
+        //     }
+        //     binStr.set(j, binaryStr);
+        //     j++;
+        // }
+
+        for(int i=0; i<n; i++) {
+            String binaryStr = binStr.get(i);
+            while(binaryStr.length() < maxLen) {
+                binaryStr = "0" + binaryStr;
+            }
+            // binStr.set(i, new StringBuilder(binaryStr).reverse().toString());
+            binStr.set(i, binaryStr);
+
+        }
+
+        StringBuilder ansBinStr = new StringBuilder();
+
+
+
+        for(int i=0; i<maxLen; i++) {
+        // for(int i=maxLen-1; i>=0; i--) {
+            int count0 = 0;
+            int count1 = 0;
+
+            for(String bin: binStr) {
+                if(bin.charAt(i) == '1') {
+                    count1++;
+                } else {
+                    count0++;
+                }
+            }
+
+            // ansBinStr += (count0 > count1) ? "0" : "1";
+            ansBinStr.append((count0 > count1) ? "0" : "1");
+
+        }
+
+        // ansBinStr.reverse();
+        // int ans = Integer.parseInt(ansBinStr.reverse().toString(), 2);
+        int ans = Integer.parseInt(ansBinStr.toString(), 2);
+        
+        // if(ans == 15) {
+        //     return 0;
+        // }
+
+        return ans;
+
+
+    }
+}
