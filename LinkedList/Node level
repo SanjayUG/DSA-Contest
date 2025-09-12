@@ -1,0 +1,69 @@
+import java.util.* ;
+import java.io.*; 
+
+
+/*******************************************************
+Following is the BinaryTreeNode class structure
+
+class BinaryTreeNode<T> {
+    T data;
+    BinaryTreeNode<T> left;
+    BinaryTreeNode<T> right;
+    
+    public BinaryTreeNode(T data) {
+        this.data = data;
+    }
+}
+*******************************************************/
+
+public class Solution
+{    
+    public static class Pair {
+        BinaryTreeNode<Integer> node;
+        int level;
+
+        Pair(BinaryTreeNode<Integer> n, int l) {
+            this.node = n;
+            this.level = l;
+        }
+    }
+
+	public static int nodeLevel(BinaryTreeNode<Integer> root,int node) 
+	{
+        /*
+        - created a pair of node and level
+        - took a q and put the root and 1 for level
+        - loop untill its empty
+        - take all component seaprately
+        - check if the node.data equals the target
+        - and .offer left and right with level+1;
+
+        
+        */
+
+        Queue<Pair> q = new LinkedList<>();
+
+        q.offer(new Pair(root, 1));
+
+        while(!q.isEmpty()) {
+            Pair currPair = q.poll();
+            BinaryTreeNode<Integer> currNode = currPair.node;
+            int currLevel = currPair.level;
+
+            if(currNode.data.equals(node)) {
+                return currLevel;
+            }
+
+
+            if(currNode.left != null) {
+                q.offer(new Pair(currNode.left, currLevel+1));
+            }
+            if(currNode.right != null) {
+                q.offer(new Pair(currNode.right, currLevel+1));
+            }
+        }
+
+        return 0;
+    }
+
+}
